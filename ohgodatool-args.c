@@ -9,10 +9,12 @@
 void PrintUsage(char *BinName)
 {
 	printf("OhGodATool %s\n", OHGODATOOL_VERSION);
-	printf("Usage: %s [-i GPUIdx | -f VBIOSFile] [Generic Options] [--core-state StateIdx] [--mem-state StateIdx] [--volt-state StateIdx] [State modification options]\n", BinName);
+	printf("Usage: %s [-i GPUIdx | -f VBIOSFile] [Generic Options] [sysfs options] [--core-state StateIdx] [--mem-state StateIdx] [--volt-state StateIdx] [State modification options]\n", BinName);
 	printf("Generic modification options:\n");
 	printf("\t--set-fanspeed <percent>\n\t--set-tdp <W>\n\t--set-tdc <W>\n\t--set-max-power <W>\n");
 	printf("\t--set-max-core-clock <Mhz>\n\t--set-max-mem-clock <Mhz>\n");
+	printf("sysfs options:\n");
+	printf("\t--sysfs-device-path <path>\tSets the device path in sysfs (used only together with -i GPUIdx)\n");
 	printf("State selection options (must be used before state modification options; -1 indicates last existing state):\n");
 	printf("\t--core-state <index>\n\t--mem-state <index>\n\t--volt-state <index>\n");
 	printf("State modification options:\n");
@@ -56,6 +58,12 @@ bool ParseCmdLine(ArgsObj *Args, int argc, char **argv)
 			NEXT_ARG_CHECK();
 			Args->VBIOSFileName = strdup(argv[++i]);
 			Args->VBIOSFileProvided = true;
+		}
+		else if (!strcmp("--sysfs-device-path", argv[i]))
+		{
+			NEXT_ARG_CHECK();
+			Args->sysfsDevicePath = strdup(argv[++i]);
+			Args->sysfsDevicePathProvided = true;
 		}
 		else if(!strcmp("--mem-state", argv[i]))
 		{

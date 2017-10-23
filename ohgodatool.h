@@ -12,6 +12,9 @@ typedef struct _ArgsObj
 	bool GPUIdxProvided, VoltageStateIdxProvided, SetCoreVDDCIdx, SetVDDCI, SetMVDD, SetCoreVDDCOff, SetVDDCGFXOff;
 	bool SetTDP, SetTDC, SetMaxPower, SetMaxCoreClk, SetMaxMemClk, VBIOSFileProvided;
 	
+	bool sysfsDevicePathProvided;
+	char *sysfsDevicePath;
+
 	bool ShowMemStates, ShowCoreStates, ShowVoltageStates, ShowFanspeed, ShowTemp;
 	
 	int32_t MemStateIdx, CoreStateIdx, VoltStateIdx;

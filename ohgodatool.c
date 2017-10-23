@@ -79,7 +79,10 @@ int main(int argc, char **argv)
 	}
 	else
 	{
-		sprintf(FilePath, "/sys/class/drm/card%d/device/pp_table", Config.GPUIdx);
+		if (Config.sysfsDevicePathProvided)
+			sprintf(FilePath, "%s/pp_table", Config.sysfsDevicePath);
+		else
+			sprintf(FilePath, "/sys/class/drm/card%d/device/pp_table", Config.GPUIdx);
 		
 		PPFile = fopen(FilePath, "rb+");
 		
